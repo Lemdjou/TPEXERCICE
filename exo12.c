@@ -1,38 +1,53 @@
 #include <stdio.h>
-#include <string.h>
 
 int main() {
-    char chaine1[100], chaine2[100];
+    int nombre, i, estPremier;
     
-    printf("=== Tri Alphabetique de Deux Chaines ===\n\n");
+    printf("=== Verification de Nombre Premier ===\n\n");
     
-    // Lecture des deux cha√Ænes
-    printf("Entrez la premiere chaine : ");
-    scanf("%s", chaine1);
+    // Lecture du nombre
+    printf("Entrez un entier positif : ");
+    scanf("%d", &nombre);
     
-    printf("Entrez la deuxieme chaine : ");
-    scanf("%s", chaine2);
+    // VÈrification si le nombre est positif
+    if (nombre <= 0) {
+        printf("\nErreur : Le nombre doit etre positif.\n");
+        return 0;
+    }
     
-    printf("\nResultat (ordre alphabetique) :\n");
+    // Cas particuliers
+    if (nombre == 1) {
+        printf("\n%d n'est pas un nombre premier.\n", nombre);
+        printf("(Par definition, 1 n'est pas considere comme premier)\n");
+        return 0;
+    }
     
-    // Utilisation de strcmp pour comparer
-    // strcmp retourne :
-    //   - une valeur n√©gative si chaine1 < chaine2
-    //   - 0 si chaine1 == chaine2
-    //   - une valeur positive si chaine1 > chaine2
+    if (nombre == 2) {
+        printf("\n%d est un nombre premier.\n", nombre);
+        printf("(2 est le seul nombre premier pair)\n");
+        return 0;
+    }
     
-    if (strcmp(chaine1, chaine2) < 0) {
-        // chaine1 vient avant chaine2
-        printf("%s\n", chaine1);
-        printf("%s\n", chaine2);
-    } else if (strcmp(chaine1, chaine2) > 0) {
-        // chaine2 vient avant chaine1
-        printf("%s\n", chaine2);
-        printf("%s\n", chaine1);
-    } else {
-        // Les deux cha√Ænes sont identiques
-        printf("%s\n", chaine1);
-        printf("%s (identique)\n", chaine2);
+    // Initialisation
+    estPremier = 1; // On suppose que le nombre est premier
+    
+    // VÈrification de la divisibilitÈ
+    // On teste tous les diviseurs de 2 jusqu'‡ nombre/2
+    for (i = 2; i <= nombre / 2; i++) {
+        if (nombre % i == 0) {
+            // Si nombre est divisible par i, il n'est pas premier
+            estPremier = 0;
+            printf("\n%d n'est pas un nombre premier.\n", nombre);
+            printf("%d est divisible par %d (%d x %d = %d)\n", 
+                   nombre, i, i, nombre/i, nombre);
+            break;
+        }
+    }
+    
+    // Si aucun diviseur n'a ÈtÈ trouvÈ
+    if (estPremier) {
+        printf("\n%d est un nombre premier.\n", nombre);
+        printf("%d n'est divisible que par 1 et par lui-meme.\n", nombre);
     }
     
     return 0;
